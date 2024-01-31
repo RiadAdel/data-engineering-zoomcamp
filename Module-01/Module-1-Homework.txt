@@ -1,0 +1,30 @@
+1. --rm
+
+2. 0.42.0
+
+3. 15612
+select count(*) from green_trip where DATE(lpep_pickup_datetime) = '2019-09-18' and DATE(lpep_dropoff_datetime) = '2019-09-18'
+
+4. 2019-09-26
+select DATE(lpep_pickup_datetime), MAX(trip_distance) FROM green_trip where DATE(lpep_pickup_datetime) BETWEEN '2019-09-16' AND '2019-09-26' group by DATE(lpep_pickup_datetime) 
+
+5. "Brooklyn" "Manhattan" "Queens"
+SELECT tz."Borough", sum(gt.total_amount) 
+FROM green_trip  gt
+JOIN taxi_zone  tz ON gt."PULocationID" = tz."LocationID"
+WHERE DATE(lpep_pickup_datetime) = '2019-09-18'
+GROUP BY tz."Borough"
+ORDER BY 2 DESC
+
+6. JFK Airport
+SELECT DOtz."Zone", max(gt.tip_amount)
+ FROM green_trip  gt
+ LEFT JOIN taxi_zone  DOtz ON gt."DOLocationID" = DOtz."LocationID"
+ LEFT JOIN taxi_zone  PUtz ON gt."PULocationID" = PUtz."LocationID"
+ WHERE PUtz."Zone" = 'Astoria'
+ AND
+ DATE(lpep_pickup_datetime) Between '2019-09-01' AND '2019-09-30'
+ GROUP BY DOtz."Zone"
+ ORDER BY 2 DESC
+
+7.

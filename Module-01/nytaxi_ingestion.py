@@ -24,7 +24,9 @@ def main(params):
     engine = create_engine(connection_string)
     connection = engine.connect()
 
-    df_iterator = pd.read_csv(file_name, compression="gzip", chunksize=50_000)
+    df_iterator = pd.read_csv(
+        file_name, compression="gzip" if "gz" in url else None, chunksize=50_000
+    )
 
     df = next(df_iterator)
     for col in df.columns:

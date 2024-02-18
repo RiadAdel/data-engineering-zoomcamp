@@ -27,9 +27,9 @@ python nytaxi_ingestion.py \
 
 URL="https://github.com/DataTalksClub/nyc-tlc-data/releases/download/green/green_tripdata_2019-09.csv.gz"
 docker run -it \
---network=pg-network \
+--network=module-01_default \
 taxi_ingest:00 \
---host=pgdb \
+--host=pgdatabase \
 --user=root \
 --port=5432 \
 --password=root \
@@ -37,11 +37,12 @@ taxi_ingest:00 \
 --table=green_taxi \
 --url=${URL} 
 
+
 URL="https://s3.amazonaws.com/nyc-tlc/misc/taxi+_zone_lookup.csv"
 docker run -it \
---network=pg-network \
+--network=module-01_default \
 taxi_ingest:00 \
---host=pgdb \
+--host=pgdatabase \
 --user=root \
 --port=5432 \
 --password=root \
